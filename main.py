@@ -88,8 +88,35 @@ class Reviewer(Mentor):
 # cool_mentor.rate_hw(best_student, 'Python', 10)
 # cool_mentor.rate_hw(best_student, 'Python', 10)
 # cool_mentor.rate_hw(best_student, 'Python', 10)
-some_student = Student('Алексей', 'Чебуреков', 'Мужской')
-some_teacher = Lecturer('Биг', 'Бейби-Тейп')
-# print(some_teacher.name)
-# print(some_teacher)
-print(some_guy)
+student_1 = Student('Алексей', 'Чебуреков', 'Мужской')
+student_2 = Student('Доминик', 'Торрента', 'Бензин')
+reviewer_1 = Reviewer('Доктор', 'Дре')
+reviewer_2 = Reviewer('Асап', 'Роки')
+lecturer_1 = Lecturer('Джон', 'Сина')
+lecturer_2 = Lecturer('Хабиб', 'Нурмагомедов')
+
+students_list = [student_1, student_2]
+reviewer_list = [reviewer_1, reviewer_2]
+lecturer_list = [lecturer_1, lecturer_2]
+
+def drake(students_list, course):
+    
+
+
+
+
+
+
+
+
+# class HomeWork:
+#     grades = {'Python': [10, 18, 18, 10], 'Java': [8, 2, 4, 5]}
+
+#     def get_avg(self, student_1, selected):
+#         self.numbers = []
+#         for key, value in self.grades.items():
+#             if key == selected:
+#                 for number in value:
+#                     self.numbers.append(number)
+#         res = sum(self.numbers) / len(self.numbers)
+#         return res
