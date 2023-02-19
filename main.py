@@ -88,35 +88,38 @@ class Reviewer(Mentor):
 # cool_mentor.rate_hw(best_student, 'Python', 10)
 # cool_mentor.rate_hw(best_student, 'Python', 10)
 # cool_mentor.rate_hw(best_student, 'Python', 10)
+
 student_1 = Student('Алексей', 'Чебуреков', 'Мужской')
+student_1.courses_in_progress += ['Python']
+
 student_2 = Student('Доминик', 'Торрента', 'Бензин')
+student_2.courses_in_progress += ['Python']
+
 reviewer_1 = Reviewer('Доктор', 'Дре')
 reviewer_2 = Reviewer('Асап', 'Роки')
+
 lecturer_1 = Lecturer('Джон', 'Сина')
+lecturer_1.courses_attached += ['Python']
+
 lecturer_2 = Lecturer('Хабиб', 'Нурмагомедов')
+lecturer_2.courses_attached += ['Python']
+
+reviewer_1.rate_hw(student_1, 'Python', 10)
+reviewer_2.rate_hw(student_2, 'Python', 10)
+reviewer_1.rate_hw(student_2, 'Python', 10)
+reviewer_2.rate_hw(student_1, 'Python', 10)
+reviewer_2.rate_hw(student_2, 'Python', 10)
+
 
 students_list = [student_1, student_2]
-reviewer_list = [reviewer_1, reviewer_2]
 lecturer_list = [lecturer_1, lecturer_2]
 
-def drake(students_list, course):
-    
+def get_avg(student, course):
+    some_list = []
+    for person in student:
+        for key, value in person.grades.items():
+            if key == course:
+                some_list += value
+    return f'Средняя оценка у студентов по предмету {course}: {sum(some_list) / len(some_list)}'
 
-
-
-
-
-
-
-
-# class HomeWork:
-#     grades = {'Python': [10, 18, 18, 10], 'Java': [8, 2, 4, 5]}
-
-#     def get_avg(self, student_1, selected):
-#         self.numbers = []
-#         for key, value in self.grades.items():
-#             if key == selected:
-#                 for number in value:
-#                     self.numbers.append(number)
-#         res = sum(self.numbers) / len(self.numbers)
-#         return res
+print(get_avg(students_list, 'Python'))
