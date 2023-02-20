@@ -8,7 +8,7 @@ class Student:
         self.grades = {}
 
     def rate_lecturer(self, teacher, course, grade): # Оценка лекций от студентов
-        if isinstance(teacher, Lecturer) and course in teacher.courses_attached and course in self.courses_in_progress:
+        if isinstance(teacher, Lecturer) and course in self.courses_in_progress and course in teacher.courses_attached:
             if course in teacher.grades:
                 teacher.grades[course] += [grade]
             else:
@@ -43,7 +43,9 @@ class Mentor:
 
 
 class Lecturer(Mentor):
-    grades = {}
+    def __init__(self, name, surname):
+        super().__init__(name, surname)
+        self.grades = {}
 
     def get_avg(self):
         self.numbers = []
@@ -115,12 +117,11 @@ student_3.rate_lecturer(lecturer_2, 'Java', 6)
 student_4.rate_lecturer(lecturer_2, 'Java', 9)
 student_2.rate_lecturer(lecturer_1, 'Python', 9)
 student_3.rate_lecturer(lecturer_2, 'Java', 8)
-student_1.rate_lecturer(lecturer_1, 'Python', 10)
-
-
+student_1.rate_lecturer(lecturer_1, 'Python', 7)
 
 students_list = [student_1, student_2, student_3, student_4]
 lecturer_list = [lecturer_1, lecturer_2]
+
 def get_avg(student, course):
     some_list = []
     for person in student:
@@ -128,7 +129,6 @@ def get_avg(student, course):
             if key == course:
                 some_list += value
     return f'Средняя оценка у студентов по предмету {course}: {round(sum(some_list) / len(some_list), 2)}'
-
 
 def get_avg_lecturer(lecturer, course):
     some_list = []
@@ -138,15 +138,15 @@ def get_avg_lecturer(lecturer, course):
                 some_list += value
     return f'Средняя оценка у лекторов по предмету {course}: {round(sum(some_list) / len(some_list), 2)}'
 
-
 print(get_avg(students_list, 'Python'))
 print(get_avg(students_list, 'Java'))
 print(get_avg_lecturer(lecturer_list, 'Java'))
 print(get_avg_lecturer(lecturer_list, 'Python'))
-print()
 print()
 print(reviewer_1)
 print()
 print(lecturer_1)
 print()
 print(student_1)
+print()
+print(lecturer_2 < lecturer_1)
