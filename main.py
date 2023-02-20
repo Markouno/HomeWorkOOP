@@ -8,7 +8,7 @@ class Student:
         self.grades = {}
 
     def rate_lecturer(self, teacher, course, grade): # Оценка лекций от студентов
-        if isinstance(teacher, Lecturer) and course in self.courses_attached and course in teacher.courses_in_progress:
+        if isinstance(teacher, Lecturer) and course in teacher.courses_attached and course in self.courses_in_progress:
             if course in teacher.grades:
                 teacher.grades[course] += [grade]
             else:
@@ -22,7 +22,7 @@ class Student:
             for number in value:
                 self.numbers.append(number)
         res = sum(self.numbers) / len(self.numbers)
-        return res
+        return round(res, 2)
 
     def __str__(self): # Крутая "ПАСТА"
         res = f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за домашние задания: {self.get_avg()}\nКурсы в процессе изучения: {", ".join(self.courses_in_progress)}\nЗавершенные курсы: {",".join(self.finished_courses)}'
@@ -51,7 +51,7 @@ class Lecturer(Mentor):
             for number in value:
                 self.numbers.append(number)
         res = sum(self.numbers) / len(self.numbers)
-        return res
+        return round(res, 2)
     
     def __str__(self):
         res = f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за лекции: {self.get_avg()}'
@@ -79,47 +79,74 @@ class Reviewer(Mentor):
             return 'Ошибка'
 
 
-
-# best_student = Student('Хлеб', 'Булкович', 'Мужской')
-# best_student.courses_in_progress += ['Python']
- 
-# cool_mentor = Mentor('Олег', 'Булыгин')
-# cool_mentor.courses_attached += ['Python']
-# cool_mentor.rate_hw(best_student, 'Python', 10)
-# cool_mentor.rate_hw(best_student, 'Python', 10)
-# cool_mentor.rate_hw(best_student, 'Python', 10)
-
 student_1 = Student('Алексей', 'Чебуреков', 'Мужской')
 student_1.courses_in_progress += ['Python']
-
+student_1.finished_courses += ['SQL']
 student_2 = Student('Доминик', 'Торрента', 'Бензин')
 student_2.courses_in_progress += ['Python']
+student_2.finished_courses += ['Swift']
+student_3 = Student('Ирина', 'Кабанова', 'Женский')
+student_3.courses_in_progress += ['Java']
+student_3.finished_courses += ['HTML']
+student_4 = Student('Пирожок', 'Павидловый', 'Булка')
+student_4.courses_in_progress += ['Java']
+student_4.finished_courses += ['CSS']
 
 reviewer_1 = Reviewer('Доктор', 'Дре')
+reviewer_1.courses_attached += ['Python']
 reviewer_2 = Reviewer('Асап', 'Роки')
+reviewer_2.courses_attached += ['Java']
 
 lecturer_1 = Lecturer('Джон', 'Сина')
 lecturer_1.courses_attached += ['Python']
-
 lecturer_2 = Lecturer('Хабиб', 'Нурмагомедов')
-lecturer_2.courses_attached += ['Python']
+lecturer_2.courses_attached += ['Java']
 
 reviewer_1.rate_hw(student_1, 'Python', 10)
-reviewer_2.rate_hw(student_2, 'Python', 10)
-reviewer_1.rate_hw(student_2, 'Python', 10)
-reviewer_2.rate_hw(student_1, 'Python', 10)
-reviewer_2.rate_hw(student_2, 'Python', 10)
+reviewer_2.rate_hw(student_4, 'Java', 10)
+reviewer_1.rate_hw(student_2, 'Python', 6)
+reviewer_2.rate_hw(student_3, 'Java', 3)
+reviewer_2.rate_hw(student_3, 'Java', 10)
+reviewer_1.rate_hw(student_2, 'Python', 6)
+reviewer_2.rate_hw(student_3, 'Java', 3)
+reviewer_2.rate_hw(student_4, 'Java', 10)
+student_1.rate_lecturer(lecturer_1, 'Python', 10)
+student_3.rate_lecturer(lecturer_2, 'Java', 6)
+student_4.rate_lecturer(lecturer_2, 'Java', 9)
+student_2.rate_lecturer(lecturer_1, 'Python', 9)
+student_3.rate_lecturer(lecturer_2, 'Java', 8)
+student_1.rate_lecturer(lecturer_1, 'Python', 10)
 
 
-students_list = [student_1, student_2]
+
+students_list = [student_1, student_2, student_3, student_4]
 lecturer_list = [lecturer_1, lecturer_2]
-
 def get_avg(student, course):
     some_list = []
     for person in student:
         for key, value in person.grades.items():
             if key == course:
                 some_list += value
-    return f'Средняя оценка у студентов по предмету {course}: {sum(some_list) / len(some_list)}'
+    return f'Средняя оценка у студентов по предмету {course}: {round(sum(some_list) / len(some_list), 2)}'
+
+
+def get_avg_lecturer(lecturer, course):
+    some_list = []
+    for person in lecturer:
+        for key, value in person.grades.items():
+            if key == course:
+                some_list += value
+    return f'Средняя оценка у лекторов по предмету {course}: {round(sum(some_list) / len(some_list), 2)}'
+
 
 print(get_avg(students_list, 'Python'))
+print(get_avg(students_list, 'Java'))
+print(get_avg_lecturer(lecturer_list, 'Java'))
+print(get_avg_lecturer(lecturer_list, 'Python'))
+print()
+print()
+print(reviewer_1)
+print()
+print(lecturer_1)
+print()
+print(student_1)
